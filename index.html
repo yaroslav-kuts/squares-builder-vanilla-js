@@ -32,6 +32,12 @@
         height: 40px;
         width: 40px;
         position: absolute;
+        cursor: pointer;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 40px;
+        color: white;
+        font-weight: bold;
     }
 
     .main .add.bottom {
@@ -66,10 +72,10 @@
   <body>
     <div class="main">
         <div class="table"><table></table></div>
-        <div class="add right button"></div>
-        <div class="add bottom button"></div>
-        <div class="remove top button"></div>
-        <div class="remove left button"></div>
+        <div class="add right button">+</div>
+        <div class="add bottom button">+</div>
+        <div class="remove top button">-</div>
+        <div class="remove left button">-</div>
     </div>
     <script>
         const DEFAULT_COLUMNS_NUMBER = 4;
