@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Squares</title>
+  <style>
+    * { margin: 0 }
+
+    .main {
+        position: relative;
+        display: inline-block;
+        padding: 40px;
+    }
+
+    .table {
+        position: relative;
+        display: block;
+        background-color: #48AAE6;
+        border: 1px solid white;
+    }
+
+    .add {
+        background-color: #F6C052;
+    }
+
+    .remove {
+        background-color: #B20000;
+        display: none;
+    }
+
+    .button {
+        height: 40px;
+        width: 40px;
+        position: absolute;
+    }
+
+    .main .add.bottom {
+        left: 44px;
+        bottom: 0px;
+    }
+
+    .main .add.right {
+        right: 0px;
+        top: 44px;
+    }
+
+    .main .remove.top {
+        left: 44px;
+        top: 0px;
+    }
+
+    .main .remove.left {
+        left: 0px;
+        top: 44px;
+    }
+
+    .main .table table td {
+        height: 40px;
+        width: 40px;
+        padding: 0px;
+        margin: 0px;
+        border: 1px solid white;
+    }
+  </style>
+</head>
+  <body>
+    <div class="main">
+        <div class="table"><table></table></div>
+        <div class="add right button"></div>
+        <div class="add bottom button"></div>
+        <div class="remove top button"></div>
+        <div class="remove left button"></div>
+    </div>
+    <script>
+        const DEFAULT_COLUMNS_NUMBER = 4;
+
+        const cursorPosition = { x: 0, y: 0 };
+
+        const container = document.querySelector('.main');
+        const table = document.querySelector('.main .table table');
+
+        const addColumnButton = document.querySelector('.main .add.right.button');
+        const addRowButton = document.querySelector('.main .add.bottom.button');
+        const removeColumnButton = document.querySelector('.main .remove.top.button');
+        const removeRowButton = document.querySelector('.main .remove.left.button');
+
+        const hideRemoveButtons = () => {
+            removeColumnButton.style.display = 'none';
+            removeRowButton.style.display = 'none';
+        }
+
+        const showRemoveButtons = (x, y) => {
+            if (table.rows[0].cells.length > 1) {
+                removeColumnButton.style.display = 'block';
+                removeColumnButton.style.left = `${44 + y * 44}px`;
+            }
+            if (table.rows.length > 1) {
+                removeRowButton.style.display = 'block';
+                removeRowButton.style.top = `${44 + x * 44}px`;
+            }
+        }
+
+        const addRow = () => {
+            const row = table.insertRow();
+            const length = table.rows[0].cells.length || DEFAULT_COLUMNS_NUMBER;
+            for (let i = 0; i < length; i++) row.insertCell();
+        }
+
+        const addColumn = () => {
+            for (let i = 0; i < table.rows.length; i++) table.rows[i].insertCell();
+        }
+
+        const removeRow = (index) => {
+            table.deleteRow(index);
+            hideRemoveButtons();
+        }
+
+        const removeColumn = (index) => {
+            for (let i = 0; i < table.rows.length; i++) table.rows[i].deleteCell(index);
+            hideRemoveButtons();
+        }
+
+        addColumnButton.addEventListener('click', addColumn);
+        addRowButton.addEventListener('click', addRow);
+        removeColumnButton.addEventListener('click', () => removeColumn(cursorPosition.y));
+        removeRowButton.addEventListener('click', () => removeRow(cursorPosition.x));
+
+        table.onmouseover = (event) => {
+            if (!(event.target instanceof HTMLTableCellElement)) return;
+
+            const x = event.target.parentNode.rowIndex;
+            const y = event.target.cellIndex;
+
+            showRemoveButtons(x, y);
+
+            cursorPosition.x = x;
+            cursorPosition.y = y;
+        }
+
+        container.addEventListener('mouseleave', hideRemoveButtons);
+
+        /* build initial rectangle */
+        for (let i = 0; i < 4; i++) addRow();
+    </script>
+  </body>
+</html>
