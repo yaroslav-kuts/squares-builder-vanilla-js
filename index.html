@@ -78,27 +78,28 @@
         <div class="remove left button">-</div>
     </div>
     <script>
-        const DEFAULT_COLUMNS_NUMBER = 4;
+        const DEFAULT_ROW_NUMBER = 4;
+        const DEFAULT_COL_NUMBER = 4;
 
         const cursorPosition = { x: 0, y: 0 };
 
         const container = document.querySelector('.main');
         const table = document.querySelector('.main .table table');
 
-        const addColumnButton = document.querySelector('.main .add.right.button');
+        const addColButton = document.querySelector('.main .add.right.button');
         const addRowButton = document.querySelector('.main .add.bottom.button');
-        const removeColumnButton = document.querySelector('.main .remove.top.button');
+        const removeColButton = document.querySelector('.main .remove.top.button');
         const removeRowButton = document.querySelector('.main .remove.left.button');
 
         const hideRemoveButtons = () => {
-            removeColumnButton.style.display = 'none';
+            removeColButton.style.display = 'none';
             removeRowButton.style.display = 'none';
         }
 
         const showRemoveButtons = (x, y) => {
             if (table.rows[0].cells.length > 1) {
-                removeColumnButton.style.display = 'block';
-                removeColumnButton.style.left = `${44 + y * 44}px`;
+                removeColButton.style.display = 'block';
+                removeColButton.style.left = `${44 + y * 44}px`;
             }
             if (table.rows.length > 1) {
                 removeRowButton.style.display = 'block';
@@ -108,7 +109,7 @@
 
         const addRow = () => {
             const row = table.insertRow();
-            const length = table.rows[0].cells.length || DEFAULT_COLUMNS_NUMBER;
+            const length = table.rows[0].cells.length || DEFAULT_COL_NUMBER;
             for (let i = 0; i < length; i++) row.insertCell();
         }
 
@@ -126,9 +127,9 @@
             hideRemoveButtons();
         }
 
-        addColumnButton.addEventListener('click', addColumn);
+        addColButton.addEventListener('click', addColumn);
         addRowButton.addEventListener('click', addRow);
-        removeColumnButton.addEventListener('click', () => removeColumn(cursorPosition.y));
+        removeColButton.addEventListener('click', () => removeColumn(cursorPosition.y));
         removeRowButton.addEventListener('click', () => removeRow(cursorPosition.x));
 
         table.onmouseover = (event) => {
@@ -146,7 +147,7 @@
         container.addEventListener('mouseleave', hideRemoveButtons);
 
         /* build initial rectangle */
-        for (let i = 0; i < 4; i++) addRow();
+        for (let i = 0; i < DEFAULT_ROW_NUMBER; i++) addRow();
     </script>
   </body>
 </html>
