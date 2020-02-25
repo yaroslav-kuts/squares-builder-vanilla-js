@@ -1,4 +1,5 @@
 const DEFAULT_PADDING = 42;
+const HIDING_TIMEOUT = 250;
 
 const DEFAULT_ROW_NUMBER = 4;
 const DEFAULT_COL_NUMBER = 4;
@@ -52,15 +53,23 @@ class SquaresBuilder {
             this.y = event.target.cellIndex;
         }
 
-        this.container.addEventListener('mouseleave', this.hideRemoveButtons);
+        this.table.addEventListener('mouseleave', (event) => {
+            if ([this.removeRowButton, this.removeColButton].includes(event.relatedTarget)) return;
+            this.hideRemoveButtons();
+        });
+
+        this.removeColButton.addEventListener('mouseleave', this.hideRemoveButtons);
+        this.removeRowButton.addEventListener('mouseleave', this.hideRemoveButtons);
 
         /* build initial rectangle */
         for (let i = 0; i < DEFAULT_ROW_NUMBER; i++) this.addRow();
     }
 
     hideRemoveButtons() {
-        this.removeColButton.style.display = 'none';
-        this.removeRowButton.style.display = 'none';
+        setTimeout(() => {
+            this.removeColButton.style.display = 'none';
+            this.removeRowButton.style.display = 'none';
+        }, HIDING_TIMEOUT);
     }
 
     showRemoveButtons(offsetLeft, offsetTop) {
