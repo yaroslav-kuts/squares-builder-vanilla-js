@@ -115,7 +115,7 @@
             for (let i = 0; i < length; i++) row.insertCell();
         }
 
-        const addColumn = () => {
+        const addCol = () => {
             for (let i = 0; i < table.rows.length; i++) table.rows[i].insertCell();
         }
 
@@ -124,14 +124,14 @@
             hideRemoveButtons();
         }
 
-        const removeColumn = (index) => {
+        const removeCol = (index) => {
             for (let i = 0; i < table.rows.length; i++) table.rows[i].deleteCell(index);
             hideRemoveButtons();
         }
 
-        addColButton.addEventListener('click', addColumn);
+        addColButton.addEventListener('click', addCol);
         addRowButton.addEventListener('click', addRow);
-        removeColButton.addEventListener('click', () => removeColumn(cursorPosition.y));
+        removeColButton.addEventListener('click', () => removeCol(cursorPosition.y));
         removeRowButton.addEventListener('click', () => removeRow(cursorPosition.x));
 
         table.onmouseover = (event) => {
