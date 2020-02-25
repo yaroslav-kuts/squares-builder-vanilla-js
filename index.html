@@ -78,6 +78,8 @@
         <div class="remove left button">-</div>
     </div>
     <script>
+        const DEFAULT_PADDING = 42;
+
         const DEFAULT_ROW_NUMBER = 4;
         const DEFAULT_COL_NUMBER = 4;
 
@@ -96,14 +98,14 @@
             removeRowButton.style.display = 'none';
         }
 
-        const showRemoveButtons = (x, y) => {
+        const showRemoveButtons = (offsetLeft, offsetTop) => {
             if (table.rows[0].cells.length > 1) {
                 removeColButton.style.display = 'block';
-                removeColButton.style.left = `${44 + y * 44}px`;
+                removeColButton.style.left = `${DEFAULT_PADDING + offsetLeft}px`;
             }
             if (table.rows.length > 1) {
                 removeRowButton.style.display = 'block';
-                removeRowButton.style.top = `${44 + x * 44}px`;
+                removeRowButton.style.top = `${DEFAULT_PADDING + offsetTop}px`;
             }
         }
 
@@ -134,14 +136,10 @@
 
         table.onmouseover = (event) => {
             if (!(event.target instanceof HTMLTableCellElement)) return;
+            showRemoveButtons(event.target.offsetLeft, event.target.offsetTop);
 
-            const x = event.target.parentNode.rowIndex;
-            const y = event.target.cellIndex;
-
-            showRemoveButtons(x, y);
-
-            cursorPosition.x = x;
-            cursorPosition.y = y;
+            cursorPosition.x = event.target.parentNode.rowIndex;
+            cursorPosition.y = event.target.cellIndex;
         }
 
         container.addEventListener('mouseleave', hideRemoveButtons);
