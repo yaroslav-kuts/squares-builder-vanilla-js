@@ -65,11 +65,11 @@ class SquaresBuilder {
         for (let i = 0; i < DEFAULT_ROW_NUMBER; i++) this.addRow();
     }
 
-    hideRemoveButtons() {
+    hideRemoveButtons(timeout = HIDING_TIMEOUT) {
         setTimeout(() => {
             this.removeColButton.style.display = 'none';
             this.removeRowButton.style.display = 'none';
-        }, HIDING_TIMEOUT);
+        }, timeout);
     }
 
     showRemoveButtons(offsetLeft, offsetTop) {
@@ -95,12 +95,12 @@ class SquaresBuilder {
 
     removeRow(index) {
         this.table.deleteRow(index);
-        this.hideRemoveButtons();
+        this.hideRemoveButtons(0);
     }
 
     removeCol(index) {
         for (let i = 0; i < this.table.rows.length; i++) this.table.rows[i].deleteCell(index);
-        this.hideRemoveButtons();
+        this.hideRemoveButtons(0);
     }
 }
 
