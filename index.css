@@ -9,8 +9,7 @@
 .main .table {
     position: relative;
     display: block;
-    background-color: #48AAE6;
-    border: 1px solid white;
+    border: 1px solid #48AAE6;
 }
 
 .main .add {
@@ -35,23 +34,23 @@
 }
 
 .main .add.bottom {
-    left: 44px;
+    left: 43px;
     bottom: 0px;
 }
 
 .main .add.right {
     right: 0px;
-    top: 44px;
+    top: 43px;
 }
 
 .main .remove.top {
-    left: 44px;
+    left: 43px;
     top: 0px;
 }
 
 .main .remove.left {
     left: 0px;
-    top: 44px;
+    top: 43px;
 }
 
 .main .table table td {
@@ -59,5 +58,5 @@
     width: 40px;
     padding: 0px;
     margin: 0px;
-    border: 1px solid white;
+    background-color: #48AAE6;
 }
