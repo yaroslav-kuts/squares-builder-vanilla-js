@@ -1,5 +1,5 @@
-# squares-builder-js
+# squares-builder-vanilla-js
 
 Simple vanilla js learning project.
 
-[Run It](https://zzzonked.github.io/squares-builder-js/)
+[Run It](https://zzzonked.github.io/squares-builder-vanilla-js/)
